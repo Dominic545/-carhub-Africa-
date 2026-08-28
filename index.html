@@ -1,14 +1,389 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b0d0d"><title>CarHub Africa — Drive Different</title><meta name="description" content="CarHub Africa — a modern African car marketplace."><link rel="stylesheet" href="style.css"></head><body>
-<div class="bg-orb orb1"></div><div class="bg-orb orb2"></div>
-<header class="glass nav"><a class="brand" href="#home"><span>CAR</span>HUB <i>AFRICA</i></a><nav><a href="#cars">Explore</a><a href="#brands">Brands</a><a href="#saved">Saved</a><a href="#how">How it works</a></nav><a class="pill dark" href="#sell">Sell a car</a></header>
-<main id="home">
-<section class="hero"><div class="hero-copy"><div class="tag">NIGERIA'S NEXT CAR MARKETPLACE</div><h1>Find the car that <span>moves you.</span></h1><p>Discover standout cars, compare what matters and connect with sellers — all in one beautifully simple place.</p><div class="glass search"><div><small>Search cars</small><input id="query" placeholder="Toyota, Lexus, BMW..." oninput="filterCars()"></div><div><small>Location</small><select id="location" onchange="filterCars()"><option value="">All Nigeria</option><option>Lagos</option><option>Abuja</option><option>Port Harcourt</option></select></div><button onclick="filterCars(true)">Search</button></div><div class="trust"><span>●</span> Built for Nigeria <span>•</span> Fast & simple <span>•</span> Seller-first</div></div>
-<div class="showcase glass"><div class="showcase-top"><span>FEATURED RIDE</span><b>01 / 13</b></div><div class="feature-photo"><img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=85" alt="Real luxury car reference photo"></div><div class="showcase-info"><div><small>REFERENCE PHOTO · AUTOMOTIVE</small><h2>Mercedes-Benz C-Class</h2></div><strong>Price on request</strong></div></div></section>
-<section class="section" id="cars"><div class="section-head"><div><small>CURATED FOR YOU</small><h2>Explore cars</h2></div><span class="result-count" id="count"></span></div><div class="filters"><select id="brandFilter" onchange="filterCars()"><option value="">All brands</option><option>Toyota</option><option>Lexus</option><option>Mercedes-Benz</option><option>BMW</option><option>Land Rover</option><option>Honda</option></select><select id="conditionFilter" onchange="filterCars()"><option value="">All conditions</option><option>Foreign Used</option><option>Nigerian Used</option><option>Brand New</option></select><select id="yearFilter" onchange="filterCars()"><option value="">All years</option><option>2022</option><option>2021</option><option>2020</option></select><button class="reset" onclick="resetCars()">Reset</button></div><div class="grid" id="grid"></div><p id="empty" class="empty">No matching cars yet. Try another search.</p></section>
-<section class="dark-section" id="brands"><div class="section-head"><div><small>TOP MARQUES</small><h2>Choose your badge.</h2></div></div><div class="brand-grid"><button onclick="brand('Toyota')">Toyota</button><button onclick="brand('Lexus')">Lexus</button><button onclick="brand('Mercedes-Benz')">Mercedes-Benz</button><button onclick="brand('BMW')">BMW</button><button onclick="brand('Honda')">Honda</button><button onclick="brand('Ford')">Ford</button><button onclick="brand('Hyundai')">Hyundai</button><button onclick="brand('Land Rover')">Range Rover</button></div></section>
-<section class="section" id="saved"><small>YOUR SHORTLIST</small><h2>Saved cars</h2><div id="savedGrid" class="grid saved-grid"></div><p id="savedEmpty" class="empty">Tap ♡ on any car to save it here.</p></section>
-<section class="section" id="how"><small>THE CARHUB WAY</small><h2>Less stress. More driving.</h2><div class="steps"><div class="glass step"><span>01</span><h3>Discover</h3><p>Search by make, model, budget and city.</p></div><div class="glass step"><span>02</span><h3>Compare</h3><p>Review the details that matter before you decide.</p></div><div class="glass step"><span>03</span><h3>Connect</h3><p>Reach sellers directly through WhatsApp.</p></div></div></section>
-<section class="cta glass" id="sell"><div><small>SELL YOUR CAR</small><h2>Put your ride where buyers are looking.</h2><p>Ready to list? Send the vehicle details and photos through WhatsApp.</p></div><a class="pill dark" href="https://wa.me/2349066547511?text=Hello%20CarHub%20Africa%2C%20I%20want%20to%20list%20my%20car.">List your car ↗</a></section>
-</main><footer><div><a class="brand" href="#home"><span>CAR</span>HUB <i>AFRICA</i></a><p>Built for Africa. Made for the road.</p></div><div class="social"><a href="https://www.tiktok.com/@global.carhub" target="_blank" rel="noopener">TikTok @global.carhub</a><a href="https://wa.me/2349066547511" target="_blank" rel="noopener">WhatsApp</a></div></footer>
-<div class="modal" id="modal" aria-hidden="true"><div class="modal-card glass"><button class="close" onclick="closeModal()">×</button><img id="modalImg" alt="Vehicle reference photo"><div class="modal-content"><small id="modalCondition"></small><h2 id="modalName"></h2><p id="modalMeta"></p><div class="specs" id="modalSpecs"></div><h3 id="modalPrice">Price on request</h3><a id="modalWA" class="pill dark" target="_blank">Chat on WhatsApp ↗</a><p class="note">Reference photo only unless otherwise stated. Exact inventory photos, pricing and specifications should be verified with the seller.</p></div></div></div>
-<script src="script.js"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111613">
+  <title>CarHub Africa — Drive Different</title>
+  <meta name="description" content="CarHub Africa — a premium African car marketplace.">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+
+  <header class="glass nav">
+    <a class="brand" href="#home">
+      <span>CAR</span>HUB <i>AFRICA</i>
+    </a>
+
+    <nav>
+      <a href="#cars">Explore</a>
+      <a href="#brands">Brands</a>
+      <a href="#saved">Saved</a>
+      <a href="#how">How it works</a>
+    </nav>
+
+    <a class="pill dark" href="#sell">Sell a car</a>
+  </header>
+
+  <main id="home">
+
+    <section class="hero">
+
+      <div class="hero-copy">
+
+        <div class="tag">NIGERIA'S NEXT CAR MARKETPLACE</div>
+
+        <h1>
+          Find the car that <span>moves you.</span>
+        </h1>
+
+        <p>
+          Discover standout cars, compare what matters and connect with
+          sellers — all in one beautifully simple place.
+        </p>
+
+        <div class="glass search">
+
+          <div>
+            <small>Search cars</small>
+            <input
+              id="query"
+              placeholder="Toyota, Lexus, BMW..."
+              oninput="filterCars()"
+            >
+          </div>
+
+          <div>
+            <small>Location</small>
+            <select id="location" onchange="filterCars()">
+              <option value="">All Nigeria</option>
+              <option>Lagos</option>
+              <option>Abuja</option>
+              <option>Port Harcourt</option>
+            </select>
+          </div>
+
+          <button onclick="filterCars(true)">
+            Search
+          </button>
+
+        </div>
+
+        <div class="trust">
+          <span>●</span>
+          Built for Nigeria
+          <span>•</span>
+          Fast & simple
+          <span>•</span>
+          Seller-first
+        </div>
+
+      </div>
+
+      <div class="showcase glass">
+
+        <div class="showcase-top">
+          <span>FEATURED RIDE</span>
+          <b>01 / 13</b>
+        </div>
+
+        <div class="feature-photo">
+          <img
+            src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=85"
+            alt="Mercedes-Benz C-Class"
+          >
+        </div>
+
+        <div class="showcase-info">
+
+          <div>
+            <small>REFERENCE PHOTO · AUTOMOTIVE</small>
+            <h2>Mercedes-Benz C-Class</h2>
+          </div>
+
+          <strong>Price on request</strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="section" id="cars">
+
+      <div class="section-head">
+
+        <div>
+          <small>CURATED FOR YOU</small>
+          <h2>Explore cars</h2>
+        </div>
+
+        <span class="result-count" id="count"></span>
+
+      </div>
+
+
+      <div class="filters">
+
+        <select id="brandFilter" onchange="filterCars()">
+          <option value="">All brands</option>
+          <option>Toyota</option>
+          <option>Lexus</option>
+          <option>Mercedes-Benz</option>
+          <option>BMW</option>
+          <option>Land Rover</option>
+          <option>Honda</option>
+        </select>
+
+        <select id="conditionFilter" onchange="filterCars()">
+          <option value="">All conditions</option>
+          <option>Foreign Used</option>
+          <option>Nigerian Used</option>
+          <option>Brand New</option>
+        </select>
+
+        <select id="yearFilter" onchange="filterCars()">
+          <option value="">All years</option>
+          <option>2022</option>
+          <option>2021</option>
+          <option>2020</option>
+        </select>
+
+        <button class="reset" onclick="resetCars()">
+          Reset
+        </button>
+
+      </div>
+
+
+      <div class="grid" id="grid"></div>
+
+      <p id="empty" class="empty">
+        No matching cars yet. Try another search.
+      </p>
+
+    </section>
+
+
+    <section class="dark-section" id="brands">
+
+      <div class="section-head">
+
+        <div>
+          <small>TOP MARQUES</small>
+          <h2>Choose your badge.</h2>
+        </div>
+
+      </div>
+
+      <div class="brand-grid">
+
+        <button onclick="brand('Toyota')">Toyota</button>
+        <button onclick="brand('Lexus')">Lexus</button>
+        <button onclick="brand('Mercedes-Benz')">Mercedes-Benz</button>
+        <button onclick="brand('BMW')">BMW</button>
+        <button onclick="brand('Honda')">Honda</button>
+        <button onclick="brand('Ford')">Ford</button>
+        <button onclick="brand('Hyundai')">Hyundai</button>
+        <button onclick="brand('Land Rover')">Range Rover</button>
+
+      </div>
+
+    </section>
+
+
+    <section class="section" id="saved">
+
+      <small>YOUR SHORTLIST</small>
+
+      <h2>Saved cars</h2>
+
+      <div id="savedGrid" class="grid saved-grid"></div>
+
+      <p id="savedEmpty" class="empty">
+        Tap ♡ on any car to save it here.
+      </p>
+
+    </section>
+
+
+    <section class="section" id="how">
+
+      <small>THE CARHUB WAY</small>
+
+      <h2>Less stress. More driving.</h2>
+
+      <div class="steps">
+
+        <div class="glass step">
+          <span>01</span>
+          <h3>Discover</h3>
+          <p>
+            Search by make, model, budget and city.
+          </p>
+        </div>
+
+        <div class="glass step">
+          <span>02</span>
+          <h3>Compare</h3>
+          <p>
+            Review the details that matter before you decide.
+          </p>
+        </div>
+
+        <div class="glass step">
+          <span>03</span>
+          <h3>Connect</h3>
+          <p>
+            Reach sellers directly through WhatsApp.
+          </p>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <section class="cta glass" id="sell">
+
+      <div>
+
+        <small>SELL YOUR CAR</small>
+
+        <h2>
+          Put your ride where buyers are looking.
+        </h2>
+
+        <p>
+          Ready to list? Send the vehicle details and photos through WhatsApp.
+        </p>
+
+      </div>
+
+      <a
+        class="pill dark"
+        href="https://wa.me/2349066547511?text=Hello%20CarHub%20Africa%2C%20I%20want%20to%20list%20my%20car."
+      >
+        List your car ↗
+      </a>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+
+    <div>
+
+      <a class="brand" href="#home">
+        <span>CAR</span>HUB <i>AFRICA</i>
+      </a>
+
+      <p>
+        Built for Africa. Made for the road.
+      </p>
+
+    </div>
+
+    <div class="social">
+
+      <a
+        href="https://www.tiktok.com/@global.carhub"
+        target="_blank"
+        rel="noopener"
+      >
+        TikTok @global.carhub
+      </a>
+
+      <a
+        href="https://wa.me/2349066547511"
+        target="_blank"
+        rel="noopener"
+      >
+        WhatsApp
+      </a>
+
+    </div>
+
+  </footer>
+
+
+  <div
+    class="modal"
+    id="modal"
+    aria-hidden="true"
+  >
+
+    <div class="modal-card glass">
+
+      <button
+        class="close"
+        onclick="closeModal()"
+      >
+        ×
+      </button>
+
+      <img
+        id="modalImg"
+        alt="Vehicle reference photo"
+      >
+
+      <div class="modal-content">
+
+        <small id="modalCondition"></small>
+
+        <h2 id="modalName"></h2>
+
+        <p id="modalMeta"></p>
+
+        <div
+          class="specs"
+          id="modalSpecs"
+        ></div>
+
+        <h3 id="modalPrice">
+          Price on request
+        </h3>
+
+        <div class="modal-actions">
+
+          <a
+            id="modalWA"
+            class="pill dark"
+            target="_blank"
+          >
+            Chat on WhatsApp ↗
+          </a>
+
+          <button
+            class="pill share-modal"
+            onclick="shareCurrentCar()"
+          >
+            Share car ↗
+          </button>
+
+        </div>
+
+        <p class="note">
+          Reference photo only unless otherwise stated.
+          Exact inventory photos, pricing and specifications
+          should be verified with the seller.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
